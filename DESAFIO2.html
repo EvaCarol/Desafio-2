@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minha lista</title>
+    <style>
+        body {
+            display: flex;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #ffe6f2;
+        }
+        .menu {
+            width: 200px;
+            padding: 20px;
+            background-color: #fa8ab7;
+            color: #fff;
+        }
+        .menu img {
+            width: 100px;
+            display: block;
+            margin: 0 auto;
+            border-radius: 50%;
+        }
+        .menu h2 {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .menu p {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .menu ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .menu ul li {
+            margin: 10px 0;
+        }
+        .menu ul li a {
+            text-decoration: none;
+            color: #ffffff;
+            padding: 10px;
+            display: block;
+            color: #ffffff;
+            background-color: #e24383;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .menu ul li a:hover {
+            background-color: #fcafce;
+        }
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .content h1 {
+            text-align: center;
+            text-decoration: none;
+            color: #e24383 ;
+            margin-bottom: 20px;
+            background-color: #ffffff;
+        }
+        .tables {
+            display: flex;
+            justify-content: space-around;
+        }
+        table {
+            border-collapse: collapse;
+            width: 45%;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            color: #ffffff ;
+            background-color: #e24383;
+        }
+        .task-controls {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .task-controls input {
+            padding: 10px;
+            margin-right: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .task-controls select {
+            padding: 10px;
+            margin-right: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .task-controls button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #e24383;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .task-controls button:hover {
+            background-color: #e24383;
+        }
+    </style>
+</head>
+<body>
+    <div class="menu">
+        <img src="https://i.pinimg.com/originals/86/9d/ba/869dba8b887e9495b81a13db2db56c3c.jpg" alt="Ícone de Flores">
+        <h2>Atividades da Eva</h2>
+        <p>Minha lista de atividades juntamente com links de vídeos sobre corpo e mente</p>
+        <ul>
+            <li><a href="https://www.youtube.com/watch?v=Hwa7wsZmkyk" target="_blank">Meditação</a></li>
+            <li><a href="https://www.youtube.com/watch?v=Iy57YYgA97c" target="_blank">Skin Care</a></li>
+            <li><a href="https://www.youtube.com/watch?v=eO3-QPbXwD8" target="_blank">Exercicio em Casa</a></li>
+            <li><a href="https://www.youtube.com/watch?v=tWcYLB0kkXk" target="_blank">Receita de Macarrão</a></li>
+        </ul>
+    </div>
+    <div class="content">
+        <h1>Lista de Tarefas</h1>
+        <div class="task-controls">
+            <input type="text" id="taskInput" placeholder="Adicionar nova tarefa">
+            <select id="taskTime">
+                <option value="day">Dia</option>
+                <option value="night">Noite</option>
+            </select>
+            <button onclick="addTask()">Adicionar</button>
+        </div>
+        <div class="tables">
+            <table id="dayTasks">
+                <thead>
+                    <tr>
+                        <th>Dia</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Almoçar com mainha <button class="remove-btn" onclick="removeTask(this)">Remover</button></td>
+                    </tr>
+                    <tr>
+                        <td>Fazer atividade da facul <button class="remove-btn" onclick="removeTask(this)">Remover</button></td>
+                    </tr>
+                    <tr>
+                        <td>Comprar ração de lua <button class="remove-btn" onclick="removeTask(this)">Remover</button></td>
+                    </tr>
+                </tbody>
+            </table>
+            <table id="nightTasks">
+                <thead>
+                    <tr>
+                        <th>Noite</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Fazer skin care <button class="remove-btn" onclick="removeTask(this)">Remover</button></td>
+                    </tr>
+                    <tr>
+                        <td>Fazer aquela receita de macarrão para janta <button class="remove-btn" onclick="removeTask(this)">Remover</button></td>
+                    </tr>
+                    <tr>
+                        <td>Trocar a areia de Lua <button class="remove-btn" onclick="removeTask(this)">Remover</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        function addTask() {
+            const taskInput = document.getElementById('taskInput');
+            const taskText = taskInput.value.trim();
+            const taskTime = document.getElementById('taskTime').value;
+            if (taskText === '') return;
+
+            const newRow = document.createElement('tr');
+            const newCell = document.createElement('td');
+            newCell.innerHTML = `${taskText} <button class="remove-btn" onclick="removeTask(this)">Remover</button>`;
+            newRow.appendChild(newCell);
+
+            if (taskTime === 'day') {
+                document.getElementById('dayTasks').getElementsByTagName('tbody')[0].appendChild(newRow);
+            } else {
+                document.getElementById('nightTasks').getElementsByTagName('tbody')[0].appendChild(newRow);
+            }
+
+            taskInput.value = '';
+            }
+
+        function removeTask(button) {
+            const row = button.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+        }
+        </script>
+</body>
+</html>
